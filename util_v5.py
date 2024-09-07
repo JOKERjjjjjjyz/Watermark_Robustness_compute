@@ -29,37 +29,25 @@ def Bin(n,k,B):
     visit[n][k][B]=1
     return BIN[n][k][B]
 
+#读取hyper↓
 
-visit_Hyper_file = 'visit_Hyper.npy'
+# visit_Hyper_file = 'visit_Hyper.npy'
 HYPER_file = 'HYPER.npy'
 
-if not os.path.exists(visit_Hyper_file) or not os.path.exists(HYPER_file):
+if not os.path.exists(HYPER_file):
+# if not os.path.exists(visit_Hyper_file) or not os.path.exists(HYPER_file):
     visit_Hyper=np.zeros((400+1,max(2*eta+1,f_index_max + 1),max(2*eta+1,f_index_max + 1),max(2*eta+1,f_index_max + 1)),dtype=np.int32)
     HYPER=np.zeros((400+1,max(2*eta+1,f_index_max + 1),max(2*eta+1,f_index_max + 1),max(2*eta+1,f_index_max + 1)),dtype=np.float32)
 else:
-    visit_Hyper = np.load(visit_Hyper_file)
+    # visit_Hyper = np.load(visit_Hyper_file)
     HYPER = np.load(HYPER_file)
 
-def Hyper(N,K,n,k):
-    #算超几何分布pr
-    if k>n:
-        return 0
-    if n>N:
-        return 0
-    if k>K:
-        return 0
-    if visit_Hyper[N][K][n][k]:
-        return HYPER[N][K][n][k]
-    # print("no")
-    HYPER[N][K][n][k]=comb(K,k)*comb(N-K,n-k)/comb(N,n)
-    visit_Hyper[N][K][n][k]=1
-    return HYPER[N][K][n][k]
-
-
-visit_f_file = 'visit_f.npy'
+#读取f↓
+# visit_f_file = 'visit_f.npy'
 F_file = 'F.npy'
 
-if not os.path.exists(visit_f_file) or not os.path.exists(F_file):
+# if not os.path.exists(visit_f_file) or not os.path.exists(F_file):
+if not os.path.exists(F_file):
     visit_f = np.zeros(
         (f_index_max + 1, f_index_max + 1, max(2 * eta + 1, f_index_max + 1), max(2 * eta + 1, f_index_max + 1)),
         dtype=np.int32
@@ -69,43 +57,10 @@ if not os.path.exists(visit_f_file) or not os.path.exists(F_file):
         dtype=np.float32
     )
 else:
-    visit_f = np.load(visit_f_file)
+    # visit_f = np.load(visit_f_file)
     F = np.load(F_file)
 
-def f_computation(z,x,a,b):
-    #pre-compute f表
-    m = 3
-    sum = 0
-    #max: B(a,1/2) = a, H(z,x,b,k) = 0, x' = x+a
-    #min: B(a,1/2) = 0, H(z,x,b,k) = x, x' = 0
-    for c in range(a+1):
-        for x_prime in range(max(0,x+c-b),x+c+1):
-            p_c = Bin(a,c,2)
-            d = x+c-x_prime
-            p_d = Hyper(z,x,b,d)
-
-            if (x_prime < (z + a - b)/2):
-                sum += p_c * p_d
-            else:
-                p_aid = 0
-                for i in range(x_prime,z+a-b+1):
-                    p_aid += Bin(z+a-b,i,2)
-                sum += p_c * p_d * (1-((1-2*p_aid)**(pow(2,m-1)-1)))
-            # p_aid = 0
-            # for i in range(x_prime,z+a-b+1):
-            #     p_aid += Bin(z+a-b,i,2)
-            # sum += p_c * p_d * (1-((1-p_aid)**(pow(2,m)-1)))
-    return sum
-
-def f(z,x,a,b):
-    #算f函数值的具体函数
-    # f as table
-    if visit_f[z][x][a][b]:
-        return F[z][x][a][b]
-    F[z_array[z]][x_array[x]][a][b]=f_computation(z_array[z],x_array[x],a,b)
-    visit_f[z_array[z]][x_array[x]][a][b]=1
-    return F[z_array[z]][x_array[x]][a][b]
-
+#p表计算↓
 def p_computation():
     pp = np.zeros((kk+2,2, 2*eta+1, 2*eta+1))
     for k in range(2,kk+1):
