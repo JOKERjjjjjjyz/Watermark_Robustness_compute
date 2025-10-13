@@ -1,0 +1,10 @@
+rename.py, 0.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=10_7_5_GF_2_4.txt, 1.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=2_7_5_GF_2_4.txt, 2.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=3_7_5_GF_2_4.txt, 3.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=4_7_5_GF_2_4.txt, 4.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=5_7_5_GF_2_4.txt, 5.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=6_7_5_GF_2_4.txt, 6.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=7_7_5_GF_2_4.txt, 7.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=8_7_5_GF_2_4.txt, 8.txt
+tok_assign__delta__guanaco_OpenGen_20bits_delta=9_7_5_GF_2_4.txt, 9.txt

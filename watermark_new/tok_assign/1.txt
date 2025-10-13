@@ -1,0 +1,26 @@
+import os
+
+# 定义文件夹路径
+folder_path = '.'
+
+# 获取文件夹中的所有文件
+files = os.listdir(folder_path)
+
+# 过滤出只包含文件的列表，并按名称排序
+files = [f for f in files if os.path.isfile(os.path.join(folder_path, f))]
+files.sort()
+
+# 打开rename_index.txt文件以追加模式写入
+with open(os.path.join(folder_path, 'rename_index.txt'), 'a') as index_file:
+    # 重命名文件
+    for index, filename in enumerate(files):
+        new_name = f"{index + 1}.txt"
+        old_file = os.path.join(folder_path, filename)
+        new_file = os.path.join(folder_path, new_name)
+
+        os.rename(old_file, new_file)
+        
+        # 写入到rename_index.txt文件
+        index_file.write(f"{filename}, {new_name}\n")
+
+print(f"所有文件已成功重命名为1.txt, 2.txt, ..., {len(files)}.txt")
